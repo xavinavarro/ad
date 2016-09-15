@@ -1,0 +1,20 @@
+13-09-2016
+Synaptic
+	Monodevelop
+	Monodevelop-database
+	Monodevelop-nunit
+	Monodevelop-versioncontrol
+	Monodoc-gtk2.0-manual
+	Monodoc-browser
+	Monodoc-base
+	Monodoc-manual
+	Monodoc-mysql-manual
+	git
+
+Bitnami.com
+	Bitnami LampStack (bitnami-lampstack5.6.25-0-linux-x64-
+	installer.run). Ponemos bit de ejecucion y hacemos doble click
+	para instalar.
+
+15-09-2016
+	Añadido a Github.
