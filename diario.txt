@@ -17,4 +17,9 @@ Bitnami.com
 	para instalar.
 
 15-09-2016
-	Añadido a Github.
+	Añadido a Github. Configuración Git:
+		git config --global user.name "XaviNavarro"
+     		git config --global user.email "dam.xnavarro@institutoserpis.org"
+		git config --global push.default simple
+
+	
