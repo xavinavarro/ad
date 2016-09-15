@@ -9,12 +9,34 @@ namespace PDbPrueba
 		{
 			Console.WriteLine ("Probando acceso a dbprueba");
 			MySqlConnection mySqlConnection = new MySqlConnection ("Database=dbprueba;User Id=root;Password=sistemas");
-			mySqlConnection.Open ();
-			//Operaciones...
 
+			mySqlConnection.Open ();
+
+			//Operaciones...
+			//mySqlConnection.CreateCommand ().ExecuteScalar ();
 
 
 			mySqlConnection.Close ();
 		}
+
+		private void close (){
+
+		}
+
+		private void update (){
+		
+		}
+
+		private void insert (){
+		
+		}
+
+		private void delete (){
+		
+		}
+
+
+
+
 	}
 }
