@@ -25,7 +25,13 @@ namespace PDbPrueba {
 			dbCommand.Parameters.Add (dbDataParameter);
 			dbCommand.ExecuteNonQuery ();
 
-			
+			//Para select...
+		/*	IDataReader dataReader = dbCommand.ExecuteReader ();
+			while (dataReader.Read()) {
+				//procesar
+			}
+			dataReader.Close ();
+		*/	
 
 			dbConnection.Close ();
 
