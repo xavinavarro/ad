@@ -28,7 +28,8 @@
 
 22-09-2016
 	Ampliando PDbPrueba.
-	Añadir codigo a dbprueba.sql .
+	Añadir codigo a dbprueba.sql. Creamos tabla articulo e introducimos articulos con nombre, precio y 		categoria.
+	
 
 
 
