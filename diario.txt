@@ -25,3 +25,17 @@
 
 20-09-2016
 	Ampliamos PDbPrueba.
+
+22-09-2016
+	Ampliando PDbPrueba.
+	Añadir codigo a dbprueba.sql .
+
+
+
+
+
+
+
+
+
+

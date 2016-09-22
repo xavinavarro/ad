@@ -16,7 +16,7 @@ namespace PDbPrueba {
 
 			dbConnection.Open ();
 
-			//Operaciones...
+	/*		//Operaciones...
 			IDbCommand dbCommand = dbConnection.CreateCommand ();
 			dbCommand.CommandText = "insert into categoria (nombre) values (@nombre)";
 			IDbDataParameter dbDataParameter = dbCommand.CreateParameter ();
@@ -24,14 +24,16 @@ namespace PDbPrueba {
 			dbDataParameter.Value = "Categoria 4";
 			dbCommand.Parameters.Add (dbDataParameter);
 			dbCommand.ExecuteNonQuery ();
-
+*/
 			//Para select...
-		/*	IDataReader dataReader = dbCommand.ExecuteReader ();
+			IDbCommand dbCommand = dbConnection.CreateCommand ();
+			dbCommand.CommandText = "select * from categoria";
+			IDataReader dataReader = dbCommand.ExecuteReader ();
 			while (dataReader.Read()) {
-				//procesar
+				Console.WriteLine ("{0,4} {1}", dataReader ["id"], dataReader ["nombre"]);
 			}
 			dataReader.Close ();
-		*/	
+
 
 			dbConnection.Close ();
 
