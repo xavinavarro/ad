@@ -7,21 +7,37 @@ namespace PDbPrueba {
 
 	class MainClass	{
 
+		public enum Option {SALIR, NUEVO, EDITAR, BORRAR, LISTAR}
+
 		public static void Main (string[] args){
 
 			//	Console.WriteLine ("Probando acceso a dbprueba");
 			IDbConnection dbConnection = new MySqlConnection (
 				"Database=dbprueba;User Id=root;Password=sistemas"
-			);a
-
-
+			);
+			
 			dbConnection.Open ();
 
-			getOpcion ();
+			while (true){
+				Option option = getOption ();
+				switch (option) {
+				case Option.SALIR:
+					return;
+				case Option.NUEVO:
+					nuevo ();
+					break;
+				case Option.EDITAR:
+					editar ();
+					break;
+				case Option.LISTAR:
 
-			Console.Clear ();
+					break;
+				}
+			}
 
 
+		}
+			private static int getOpcion (){
 				while (true){
 					Console.WriteLine ("*--MENU--*");
 					Console.WriteLine ("1.- Nuevo");
@@ -36,13 +52,14 @@ namespace PDbPrueba {
 						return int.Parse (opcion);
 
 					Console.WriteLine("Opcion no valida, introduce un numero valido.");
-
+				 	 
+					
 				switch(opcion){
 
 
 					case "1":
 						Console.Clear();
-
+						
 						return 1;
 
 					case "2":
