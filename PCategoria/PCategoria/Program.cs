@@ -2,7 +2,6 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Text.RegularExpressions;
-using System.Data;
 
 
 namespace PCategoria
@@ -13,12 +12,11 @@ namespace PCategoria
 
 		public static IDbConnection dbConnection;
 
-		public static void Main (string[] args)
-		{
+		public static void Main (string[] args){
 			dbConnection = new MySqlConnection (
 				"Database=dbprueba;User Id=root;Password=sistemas"
 				);
-			//TODO valorar si merece la pena una inicialización perezosa
+
 			dbConnection.Open ();
 			while (true) {
 				Option option = getOption ();
@@ -49,13 +47,44 @@ namespace PCategoria
 			IDbCommand dbCommand = dbConnection.CreateCommand ();
 			dbCommand.CommandText = INSERT_SQL;
 			addParameter (dbCommand, "nombre", nombre);
-			dbCommand.ExecuteNonQuery ();
+			try{
+				dbCommand.ExecuteNonQuery ();
+			} catch (MySqlException ex) {
+				//string userMessage = getUserMessage (ex);
+				//if (!userMessage.Equals(""))
+				Console.WriteLine (getUserMessage(ex));
+			}
 		}
 
-		private static string UPDATE_SQL = "update categoria set nombre=@nombre where id=@id";
+		private static int ER_DUP_ENTRY = 1062;
+		private static string getUserMessage(MySqlException ex){
+			switch (ex.Number){
+				case ER_DUP_ENTRY: 
+				return "Dato duplicado. Ya existe en la base de datos";
+				//default:
+				//break;
+			}
+			return ex.Message;
+		}
+
+
+		private static string UPDATE_SQL = "update categoria set nombre=@nombre where id=@id"; 
 		private static void editar() {
-			long id = readLong ("Id: ");
-			string nombre = readString("Nombre: ");
+			long id = readLong ("Id: "); 
+			string nombre = readString("Nombre: "); 
+			IDbCommand dbCommand = dbConnection.CreateCommand (); 
+			dbCommand.CommandText = UPDATE_SQL;
+			addParameter (dbCommand, "id", id);
+			addParameter (dbCommand, "nombre", nombre);
+			try{
+				int filas = dbCommand.ExecuteNonQuery ();
+				if (filas==0)
+					Console.WriteLine ("Esta ID no existe.");
+
+			} catch (MySqlException ex){
+				
+			}
+
 
 		}
 
@@ -66,10 +95,15 @@ namespace PCategoria
 			dbCommand.CommandText = DELETE_SQL;
 			addParameter (dbCommand, "id", id);
 			//TODO comprobar si devuelve 0 (ningún registro afectado)...
-			dbCommand.ExecuteNonQuery ();
+			int filas = dbCommand.ExecuteNonQuery ();
+			if (filas == 0)
+				Console.WriteLine ("No existe ningun registro con ese ID.");
+			//dbCommand.ExecuteNonQuery ();
 		}
 
+		private static string SELECT_SQL = "select * from categoria";
 		private static void listar() {
+
 		}
 
 		private static void addParameter(IDbCommand dbCommand, string name, object value) {
@@ -91,6 +125,7 @@ namespace PCategoria
 			}
 		}
 
+
 		private static string readString (string label) {
 			while (true) {
 				Console.Write (label);
@@ -98,7 +133,7 @@ namespace PCategoria
 				data = data.Trim ();
 				if (!data.Equals (""))
 					return data;
-				Console.WriteLine ("No puede quedar vacío. Vuelve a introducir.");
+				Console.WriteLine ("No puede estar vacío. Vuelve a introducir.");
 			}
 		}
 
@@ -113,7 +148,7 @@ namespace PCategoria
 				string option = Console.ReadLine ();
 				if (Regex.IsMatch (option, pattern))
 					return (Option)int.Parse (option);
-				Console.WriteLine("Opción inválida. Vuelve a introducir.");
+				Console.WriteLine("Opcion invalida. Vuelve a introducir.");
 			}
 		}
 	}
