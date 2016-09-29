@@ -67,7 +67,6 @@ namespace PCategoria
 			return ex.Message;
 		}
 
-
 		private static string UPDATE_SQL = "update categoria set nombre=@nombre where id=@id"; 
 		private static void editar() {
 			long id = readLong ("Id: "); 
@@ -79,13 +78,10 @@ namespace PCategoria
 			try{
 				int filas = dbCommand.ExecuteNonQuery ();
 				if (filas==0)
-					Console.WriteLine ("Esta ID no existe.");
-
+					Console.WriteLine ("No existe ningun registro con ese ID.");
 			} catch (MySqlException ex){
-				
+				Console.WriteLine (getUserMessage (ex));
 			}
-
-
 		}
 
 		private static string DELETE_SQL = "delete from categoria where id=@id";
@@ -94,7 +90,6 @@ namespace PCategoria
 			IDbCommand dbCommand = dbConnection.CreateCommand ();
 			dbCommand.CommandText = DELETE_SQL;
 			addParameter (dbCommand, "id", id);
-			//TODO comprobar si devuelve 0 (ningún registro afectado)...
 			int filas = dbCommand.ExecuteNonQuery ();
 			if (filas == 0)
 				Console.WriteLine ("No existe ningun registro con ese ID.");
@@ -103,8 +98,15 @@ namespace PCategoria
 
 		private static string SELECT_SQL = "select * from categoria";
 		private static void listar() {
-
-		}
+			IDbCommand dbCommand = dbConnection.CreateCommand ();
+			dbCommand.CommandText = SELECT_SQL;
+			IDataReader dataReader = dbCommand.ExecuteReader ();
+			Console.WriteLine ("{0,5} {1}", "ID", "Nombre");
+			while (dataReader.Read()) {
+				Console.WriteLine ("{0,5} {1}", dataReader ["id"], dataReader ["Nombre"]);
+				dataReader.Close ();
+			}
+		} 
 
 		private static void addParameter(IDbCommand dbCommand, string name, object value) {
 			IDbDataParameter dbDataParameter = dbCommand.CreateParameter ();
@@ -124,7 +126,6 @@ namespace PCategoria
 				}
 			}
 		}
-
 
 		private static string readString (string label) {
 			while (true) {
