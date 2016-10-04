@@ -6,7 +6,10 @@
   </configuration>
   <import>
     <widget-library name="../bin/Debug/PTreeView.exe" internal="true" />
+    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </import>
+  <action-group name="PTreeView.ActionGroup" />
+  <action-group name="PTreeView.TreeViewHelper" />
   <widget class="Gtk.Window" id="PTreeView.Window" design-size="400 300">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Window</property>

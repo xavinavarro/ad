@@ -1,5 +1,6 @@
 using System;
 using Gtk;
+using Org.InstitutoSerpis.Ad;
 
 namespace PDbPrueba
 {
@@ -9,6 +10,9 @@ namespace PDbPrueba
 		{
 			Build ();
 			string[] columnNames = {"id", "nombre", "precio"};
+			TreeViewHelper.AppendColumns(treeView, columnNames);
+
+
 			for (int index = 0; index < columnNames.Length; index++)
 
 				treeView.AppendColumn (columnNames[index], new CellRendererText (),
@@ -20,11 +24,8 @@ namespace PDbPrueba
 					}
 				);
 				
-
-
 		
 		
-
 		ListStore listStore = new ListStore (typeof(long), typeof(string), typeof(decimal));
 		TreeView.Model = listStore;
 		listStore.AppendValues (1L, "categoria 1", 1.5m);
