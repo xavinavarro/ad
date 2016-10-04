@@ -64,7 +64,6 @@ namespace PDbPrueba {
 
 					case "2":
 						Console.Clear();
-
 						return 2;
 
 					case "3":

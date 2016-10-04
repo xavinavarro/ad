@@ -8,15 +8,33 @@ namespace PDbPrueba
 		public Window () : base(Gtk.WindowType.Toplevel)
 		{
 			Build ();
-			treeView.AppendColumn ("id", new CellRendererText (), "text", 0);
-			treeView.AppendColumn ("nombre", new CellRendererText (), "text", 1);
-			ListStore listStore = new ListStore (typeof(long), typeof(string));
-			treeView.Model = listStore;
-			listStore.AppendValues (1L, "categoria 1");
+			string[] columnNames = {"id", "nombre", "precio"};
+			for (int index = 0; index < columnNames.Length; index++)
+
+				treeView.AppendColumn (columnNames[index], new CellRendererText (),
+				    delegate(TreeViewColumn tree_column, CellRenderer cell, TreeModel tree_model, TreeIter iter) {
+						CellRendererText cellRendererText = (CellRendererText)cell;
+						object value = tree_model.GetValue(iter,column);
+						cellRendererText.Text = value.ToString();
+					Console.WriteLine ("index={0} column{1}", index, column);
+					}
+				);
+				
+
+
+		
+		
+
+		ListStore listStore = new ListStore (typeof(long), typeof(string), typeof(decimal));
+		TreeView.Model = listStore;
+		listStore.AppendValues (1L, "categoria 1", 1.5m);
+		listStore.AppendValues (2L, "categoria 2", 2.5m);
+
 		}
 		protected void OnDeleteEvent (object sender, DeleteEventArgs a){
 			Application.Quit ();
 			a.RetVal = true;
+		
 		}
 	}
 }
