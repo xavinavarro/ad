@@ -6,13 +6,12 @@ namespace PDbPrueba
 {
 	public partial class Window : Gtk.Window 
 	{
-		public Window () : base(Gtk.WindowType.Toplevel)
-		{
+		public Window () : base(Gtk.WindowType.Toplevel) {
 			Build ();
 			string[] columnNames = {"id", "nombre", "precio"};
 			TreeViewHelper.AppendColumns(treeView, columnNames);
 
-
+			/*
 			for (int index = 0; index < columnNames.Length; index++)
 
 				treeView.AppendColumn (columnNames[index], new CellRendererText (),
@@ -24,7 +23,7 @@ namespace PDbPrueba
 					}
 				);
 				
-		
+		*/
 		
 		ListStore listStore = new ListStore (typeof(long), typeof(string), typeof(decimal));
 		TreeView.Model = listStore;

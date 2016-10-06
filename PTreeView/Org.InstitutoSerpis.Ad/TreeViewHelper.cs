@@ -11,7 +11,7 @@ namespace Org.InstitutoSerpis.Ad
 				int column = index++;
 				treeview.AppendColumn (columnName, new CellRendererText (),
 					delegate (TreeViewColumn tree_column, CellRenderer CellView, TreeModel tree_model){
-				 		int column = Array.IndexOf(treeview.Columns, tree_column);
+				 		int column = Array.IndexOf(treeview.Columns, tree_column); 
 						CellRendererText cellRendererText = (CellRendererText)cell;
 						object value = tree_model.GetValue(iter, column);
 						cellRendererText.Text = value.ToString();
