@@ -8,27 +8,15 @@ namespace PDbPrueba
 	{
 		public Window () : base(Gtk.WindowType.Toplevel) {
 			Build ();
-			string[] columnNames = {"id", "nombre", "precio"};
-			TreeViewHelper.AppendColumns(treeView, columnNames);
+			IconList list = new List<Articulo> ();
+			list.Add (new Articulo
 
-			/*
-			for (int index = 0; index < columnNames.Length; index++)
-
-				treeView.AppendColumn (columnNames[index], new CellRendererText (),
-				    delegate(TreeViewColumn tree_column, CellRenderer cell, TreeModel tree_model, TreeIter iter) {
-						CellRendererText cellRendererText = (CellRendererText)cell;
-						object value = tree_model.GetValue(iter,column);
-						cellRendererText.Text = value.ToString();
-					Console.WriteLine ("index={0} column{1}", index, column);
-					}
-				);
-				
-		*/
+			TreeViewHelper.Fill (treeView, list);
 		
-		ListStore listStore = new ListStore (typeof(long), typeof(string), typeof(decimal));
-		TreeView.Model = listStore;
-		listStore.AppendValues (1L, "categoria 1", 1.5m);
-		listStore.AppendValues (2L, "categoria 2", 2.5m);
+//		ListStore listStore = new ListStore (typeof(long), typeof(string), typeof(decimal));
+//		TreeView.Model = listStore;
+//		listStore.AppendValues (1L, "categoria 1", 1.5m);
+//		listStore.AppendValues (2L, "categoria 2", 2.5m);
 
 		}
 		protected void OnDeleteEvent (object sender, DeleteEventArgs a){
@@ -36,5 +24,12 @@ namespace PDbPrueba
 			a.RetVal = true;
 		
 		}
+	}
+	public class Categoria {
+		public long Id {get; set;}
+		public string Nombre { get; set; }
+	}
+	public class Articulo{
+		
 	}
 }
