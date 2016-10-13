@@ -5,7 +5,7 @@ namespace Org.InstitutoSerpis.Ad
 {
 	public class TreeViewHelper
 	{
-		public static void AppendColumns(TreeView treeView, string[] columnNames) {
+		private static void AppendColumns(TreeView treeView, IList list) {
 			foreach (string columnName in columnNames) {
 				treeView.AppendColumn (columnName, new CellRendererText (),
 				                       delegate(TreeViewColumn tree_column, CellRenderer cell, TreeModel tree_model, TreeIter iter) {

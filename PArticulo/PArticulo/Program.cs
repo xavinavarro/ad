@@ -1,17 +1,14 @@
-using MySql.Data.MySqlClient;
 using System;
-using System.Data;
 using Gtk;
 
-
-namespace PDbPrueba {
-
-	class MainClass	{
-
+namespace PArticulo
+{
+	class MainClass
+	{
 		public static void Main (string[] args)
 		{
 			Application.Init ();
-			Window win = new Window ();
+			MainWindow win = new MainWindow ();
 			win.Show ();
 			Application.Run ();
 		}
