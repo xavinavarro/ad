@@ -79,4 +79,9 @@
     <Compile Include="gtk-gui\PArticulo.ArticuloView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="PArticulo.csproj">
+      <Link>Properties\PArticulo.csproj</Link>
+    </None>
+  </ItemGroup>
 </Project>
