@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Gtk;
-
 using MySql.Data.MySqlClient;
 using Org.InstitutoSerpis.Ad;
 using PArticulo;
