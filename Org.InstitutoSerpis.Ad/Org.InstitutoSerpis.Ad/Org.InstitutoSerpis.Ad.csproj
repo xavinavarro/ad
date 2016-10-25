@@ -49,6 +49,7 @@
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="ComboboxHelper.cs" />
     <Compile Include="gtk-gui\Org.InstitutoSerpis.Ad.ComboboxHelper.cs" />
+    <Compile Include="Null.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
