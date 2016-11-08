@@ -1,8 +1,8 @@
-using Gtk;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using Gtk;
 
 using Org.InstitutoSerpis.Ad;
 
@@ -12,7 +12,7 @@ namespace PArticulo
 	{
 		public ArticuloView () : base(Gtk.WindowType.Toplevel) {
 			this.Build ();
-			spinButtonPrecio.Value = 0; //stetic bug
+			spinButtonPrecio.Value = 0; 
 			saveAction.Sensitive = false;
 			saveAction.Activated += delegate {
 				Console.WriteLine ("saveAction.Activated");

@@ -30,10 +30,11 @@ namespace Org.InstitutoSerpis.Ad
 			comboBox.GetActiveIter (out treeIter);
 			object otem = comboBox.Model.GetValue (treeIter, 0);
 			//return Item == Null.Value ? null : (object)(((Categoria)Item).Id);
-		if (Item == Null.Value)
-			return null;
+			if (Item == Null.Value)
+				return null;
 			Type elementType = Item.GetType ();
 			PropertyInfo propertyInfo = elementType.GetProperty ("Id");
 			return propertyInfo.GetValue (Item, null);
+		}
 	}
 }
