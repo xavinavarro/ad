@@ -1,21 +1,25 @@
 using System;
 using System.Data;
 
-namespace PArticulo
+namespace Org.InstitutoSerpis.Ad
 {
-	public class App {
-		private App(){
+	public class App
+	{
+		private App ()
+		{
 		}
 
-		private static App instance = new App ();
+		private static App instance = new App();
+
 		public static App Instance {
-			get{ return instance;}
+			get { return instance; }
 		}
 
 		private IDbConnection dbConnection;
 		public IDbConnection DbConnection {
-			get{ return dbConnection;}
-			set{ dbConnection = value;}
+			get { return dbConnection;}
+			set { dbConnection = value;}
 		}
 	}
 }
+

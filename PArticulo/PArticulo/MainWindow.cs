@@ -1,44 +1,57 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using GLib;
 using Gtk;
 using MySql.Data.MySqlClient;
+using System;
+using System.Collections;
+using System.Data;
+
 using Org.InstitutoSerpis.Ad;
 using PArticulo;
 
 public partial class MainWindow: Gtk.Window
 {	
-	private MySqlConnection mySqlConnection; 
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
 		Build ();
-		mySqlConnection = new MySqlConnection (
+		App.Instance.DbConnection = new MySqlConnection (
 			"Database=dbprueba;User Id=root;Password=sistemas"
-			);
-		mySqlConnection.Open ();
+		);
+		App.Instance.DbConnection.Open ();
 
-		string selectSql = "select * from articulo";
-		IDbCommand dbCommand = mySqlConnection.CreateCommand ();
-		dbCommand.CommandText = selectSql;
-		IDataReader dataReader = dbCommand.ExecuteReader ();
-		while (dataReader.Read()) {
-			long id = dataReader ["id"];
-			string nombre = dataReader ["nombre"];
-			decimal? precio = dataReader ["precio"] is DBNull ? null : (decimal?)dataReader ["precio"];
-			long? categoria = dataReader ["categoria"] is DBNull ? null : (long?)dataReader ["categoria"];
-			Articulo articulo = new Articulo (id, nombre, precio, null);
-			List.Add (articulo);
-		}
+		fill ();
 
-		dataReader.Close ();
+		treeView.Selection.Changed += delegate {
+			bool selected = treeView.Selection.CountSelectedRows() > 0;
+			editAction.Sensitive = selected;
+			deleteAction.Sensitive = selected;
+		};
 
-		TreeViewHelper.Fill (TreeView, list);
+		newAction.Activated += delegate {
+			new ArticuloView();
+		};
+
+		deleteAction.Activated += delegate {
+			if (WindowHelper.Confirm(this, "¿Quieres eliminarrrr el registro?"))
+				ArticuloDao.Delete(TreeViewHelper.GetId(treeView));
+		};
+
+
+		refreshAction.Activated += delegate {
+			fill();
+		};
+
+
+	}
+
+	private void fill() {
+		editAction.Sensitive = false;
+		deleteAction.Sensitive = false;
+		IList list = ArticuloDao.GetList ();
+		TreeViewHelper.Fill (treeView, list);
 	}
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
-		mySqlConnection.Close ();
+		App.Instance.DbConnection.Close ();
 		Application.Quit ();
 		a.RetVal = true;
 	}

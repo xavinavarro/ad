@@ -1,8 +1,8 @@
+using Gtk;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using Gtk;
 
 using Org.InstitutoSerpis.Ad;
 
@@ -12,22 +12,15 @@ namespace PArticulo
 	{
 		public ArticuloView () : base(Gtk.WindowType.Toplevel) {
 			this.Build ();
-			spinButtonPrecio.Value = 0; 
+			spinButtonPrecio.Value = 0; //stetic bug
 			saveAction.Sensitive = false;
 			saveAction.Activated += delegate {
 				Console.WriteLine ("saveAction.Activated");
-				string nombre = entryNombre.Text;
-				decimal precio = (decimal)spinButtonPrecio.Value;
-				object categoria = ComboBoxHelper.GetId(comboBoxCategoria);
-				Console.WriteLine ("value='{0}'", categoria);
-				string insertSql = "insert into articulo (nombre, precio, categoria) " +
-					"values (@nombre, @precio, @categoria)";
-				IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
-				dbCommand.CommandText = insertSql;
-				DbCommandHelper.AddParameter(dbCommand, "nombre", nombre);
-				DbCommandHelper.AddParameter(dbCommand, "precio", precio);
-				DbCommandHelper.AddParameter(dbCommand, "categoria", categoria);
-				dbCommand.ExecuteNonQuery();
+				Articulo articulo = new Articulo();
+				articulo.Nombre = entryNombre.Text;
+				articulo.Precio = (decimal)spinButtonPrecio.Value;
+				articulo.Categoria = (long?)ComboBoxHelper.GetId(comboBoxCategoria);
+				ArticuloDao.Save(articulo);
 			};
 
 			entryNombre.Changed += delegate {
@@ -39,31 +32,10 @@ namespace PArticulo
 		}
 
 		private void fill() {
-			List<Categoria> list = new List<Categoria> ();
-			string selectSql = "select * from categoria order by nombre";
-			IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand ();
-			dbCommand.CommandText = selectSql;
-			IDataReader dataReader = dbCommand.ExecuteReader ();
-			while (dataReader.Read()) {
-				long id = (long)dataReader ["id"];
-				string nombre = (string)dataReader ["nombre"];
-				Categoria categoria = new Categoria (id, nombre);
-				list.Add (categoria);
-			}
-			dataReader.Close ();
-
+			IList list = CategoriaDao.GetList ();
 			ComboBoxHelper.Fill(comboBoxCategoria, list, "Nombre");
 		}
 
 	}
-
-	public class Categoria {
-		public Categoria (long id, string nombre) {
-			Id = id;
-			Nombre = nombre;
-		}
-
-		public long Id { get; set; }
-		public string Nombre { get; set; }
-	}
 }
+

@@ -37,5 +37,15 @@ namespace PArticulo
 			DbCommandHelper.AddParameter(dbCommand, "categoria", articulo.Categoria);
 			dbCommand.ExecuteNonQuery();
 		}
+
+		private const string DELETE_SQL = "delete from articulo where id = @id";
+		public static void Delete(object id) {
+			IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand ();
+			dbCommand.CommandText = DELETE_SQL;
+			DbCommandHelper.AddParameter (dbCommand, "id", id);
+			dbCommand.ExecuteNonQuery ();
+			//TODO lanzar exception si no elimina ningún registro
+		}
 	}
 }
+
