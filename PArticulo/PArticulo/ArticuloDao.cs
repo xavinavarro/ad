@@ -1,11 +1,30 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Reflection;
 
 using Org.InstitutoSerpis.Ad;
 
 namespace PArticulo
 {
+	public class EntityDao{
+		private const string SELECT_SQL = "select * from {0}";
+		public static List<TEntity> GetList<TEntity>(){
+		/*	Type type = typeof(TEntity);
+			Console.WriteLine ("type.Name=" + type.Name);
+			foreach (PropertyInfo propertyInfo in type.GetProperties())
+				Console.WriteLine ("propertyInfo.Name=" + propertyInfo.Name);
+				PropertyInfo.SetValue(
+			List<TEntity> list = new List<TEntity> ();
+				object item = Activator.CreateInstance<TEntity> ();
+			return list;    */
+			Type typeEntity = typeof(TEntity);
+			List<TEntity> list = new List<TEntity> ();
+			IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand ();
+			dbCommand.CommandText = string.Format (SELECT_SQL, typeEntity.Name.ToLower ());
+		}
+	}
+
 	public class ArticuloDao
 	{
 
@@ -44,7 +63,6 @@ namespace PArticulo
 			dbCommand.CommandText = DELETE_SQL;
 			DbCommandHelper.AddParameter (dbCommand, "id", id);
 			dbCommand.ExecuteNonQuery ();
-			//TODO lanzar exception si no elimina ningún registro
 		}
 	}
 }

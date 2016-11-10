@@ -39,6 +39,7 @@ public partial class MainWindow: Gtk.Window
 			fill();
 		};
 
+		EntityDao.GetList<Articulo> ();
 
 	}
 
