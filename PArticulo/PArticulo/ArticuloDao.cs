@@ -22,6 +22,19 @@ namespace PArticulo
 			List<TEntity> list = new List<TEntity> ();
 			IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand ();
 			dbCommand.CommandText = string.Format (SELECT_SQL, typeEntity.Name.ToLower ());
+			IDataReader dataReader = dbCommand.ExecuteReader ();
+			while (dataReader.Read()) {
+				TEntity item = Activator.CreateInstance<TEntity> ();
+				foreach (PropertyInfo propertyInfo in typeEntity.GetProperties()) {
+					object value = dataReader [propertyInfo.Name.ToLower ()];
+					if (value is DBNull)
+						value = null;
+					propertyInfo.SetValue (item, value, null);
+				}
+				list.Add (item);
+			}
+			dataReader.Close ();
+			return list;
 		}
 	}
 
