@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 
-using PArticulo;
 
 namespace Org.InstitutoSerpis.Ad
 {
@@ -37,7 +36,8 @@ namespace Org.InstitutoSerpis.Ad
 			return list;
 		}
 	}
-
+}
+	/*
 	public class ArticuloDao
 	{
 
@@ -78,4 +78,4 @@ namespace Org.InstitutoSerpis.Ad
 			dbCommand.ExecuteNonQuery ();
 		}
 	}
-}
+}*/

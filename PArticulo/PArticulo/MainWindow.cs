@@ -30,7 +30,7 @@ public partial class MainWindow: Gtk.Window
 		};
 
 		deleteAction.Activated += delegate {
-			if (WindowHelper.Confirm(this, "¿Quieres eliminarrrr el registro?"))
+			if (WindowHelper.Confirm(this, "¿Quieres eliminar el registro?"))
 				ArticuloDao.Delete(TreeViewHelper.GetId(treeView));
 		};
 
@@ -39,7 +39,7 @@ public partial class MainWindow: Gtk.Window
 			fill();
 		};
 
-		EntityDao.GetList<Articulo> ();
+		//EntityDao.GetList<Articulo> ();
 
 	}
 
