@@ -75,6 +75,4 @@ namespace Org.InstitutoSerpis.Ad
 			return item.GetType ().GetProperty ("Id").GetValue (item, null);
 		}
 	}
-
 }
-

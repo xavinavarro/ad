@@ -38,7 +38,6 @@ public partial class MainWindow: Gtk.Window
 		refreshAction.Activated += delegate {
 			fill();
 		};
-
 		//EntityDao.GetList<Articulo> ();
 
 	}

@@ -10,14 +10,7 @@ namespace PArticulo
 	public class EntityDao{
 		private const string SELECT_SQL = "select * from {0}";
 		public static List<TEntity> GetList<TEntity>(){
-		/*	Type type = typeof(TEntity);
-			Console.WriteLine ("type.Name=" + type.Name);
-			foreach (PropertyInfo propertyInfo in type.GetProperties())
-				Console.WriteLine ("propertyInfo.Name=" + propertyInfo.Name);
-				PropertyInfo.SetValue(
-			List<TEntity> list = new List<TEntity> ();
-				object item = Activator.CreateInstance<TEntity> ();
-			return list;    */
+		
 			Type typeEntity = typeof(TEntity);
 			List<TEntity> list = new List<TEntity> ();
 			IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand ();
@@ -41,14 +34,15 @@ namespace PArticulo
 	public class ArticuloDao
 	{
 
-		private const string SELECT_SQL = "select * from articulo";
-		public static List<Articulo> GetList() {
+		private const string SELECT_ID_SQL = "select * from articulo";
+		public static Articulo Load(long id){
 			List<Articulo> list = new List<Articulo>();
 			IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand ();
-			dbCommand.CommandText = SELECT_SQL;
+			dbCommand.CommandText = SELECT_ID_SQL;
+			DbCommandHelper.AddParameter (dbCommand, "id", id);
 			IDataReader dataReader = dbCommand.ExecuteReader ();
 			while (dataReader.Read()) {
-				long id = (long)dataReader ["id"];
+				id = (long)dataReader ["id"];
 				string nombre = (string)dataReader ["nombre"];
 				decimal? precio = dataReader ["precio"] is DBNull ? null : (decimal?)dataReader ["precio"];
 				long? categoria = dataReader["categoria"] is DBNull ? null : (long?)dataReader["categoria"];
