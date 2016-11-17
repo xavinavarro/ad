@@ -10,13 +10,16 @@ namespace PArticulo
 {
 	public partial class ArticuloView : Gtk.Window
 	{
-		public ArticuloView () : base(Gtk.WindowType.Toplevel) {
+		public ArticuloView (Articulo articulo) : base(Gtk.WindowType.Toplevel) {
 			this.Build ();
+
+			entryNombre.Text = articulo.Nombre;
+			//spinButtonPrecio.Value = articulo.Precio;
+
 			spinButtonPrecio.Value = 0; //stetic bug
 			saveAction.Sensitive = false;
 			saveAction.Activated += delegate {
 				Console.WriteLine ("saveAction.Activated");
-				Articulo articulo = new Articulo();
 				articulo.Nombre = entryNombre.Text;
 				articulo.Precio = (decimal)spinButtonPrecio.Value;
 				articulo.Categoria = (long?)ComboBoxHelper.GetId(comboBoxCategoria);
@@ -38,4 +41,3 @@ namespace PArticulo
 
 	}
 }
-
