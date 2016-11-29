@@ -55,13 +55,26 @@ namespace PArticulo
 
 		private const string INSERT_SQL = "insert into articulo (nombre, precio, categoria) " +
 			"values (@nombre, @precio, @categoria)";
+		private const string UPDATE_SQL = "update articulo set nombre = @nombre, " +
+		"precio = @precio, categoria = @categoria where id = @id";
+
 		public static void Save(Articulo articulo) {
+			if (articulo.Id == 0){ // insert...
 			IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
 			dbCommand.CommandText = INSERT_SQL;
 			DbCommandHelper.AddParameter(dbCommand, "nombre", articulo.Nombre);
 			DbCommandHelper.AddParameter(dbCommand, "precio", articulo.Precio);
 			DbCommandHelper.AddParameter(dbCommand, "categoria", articulo.Categoria);
 			dbCommand.ExecuteNonQuery();
+		}else {
+			IDbCommand dbCommand = App.Instance.DbConnection.CreateCommand();
+			dbCommand.CommandText = UPDATE_SQL;
+			DbCommandHelper.AddParameter(dbCommand, "nombre", articulo.Nombre);
+			DbCommandHelper.AddParameter(dbCommand, "precio", articulo.Precio);
+			DbCommandHelper.AddParameter(dbCommand, "categoria", articulo.Categoria);
+			DbCommandHelper.AddParameter(dbCommand, "id", articulo.Id);
+			dbCommand.ExecuteNonQuery();
+			}
 		}
 
 		private const string DELETE_SQL = "delete from articulo where id = @id";

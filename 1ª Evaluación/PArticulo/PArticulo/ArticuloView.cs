@@ -14,9 +14,9 @@ namespace PArticulo
 			this.Build ();
 
 			entryNombre.Text = articulo.Nombre;
-			//spinButtonPrecio.Value = articulo.Precio;
+			spinButtonPrecio.Value = (double)articulo.Precio;
+			fillComboBoxCategoria (articulo.Categoria);
 
-			spinButtonPrecio.Value = 0; //stetic bug
 			saveAction.Sensitive = false;
 			saveAction.Activated += delegate {
 				Console.WriteLine ("saveAction.Activated");
@@ -34,7 +34,7 @@ namespace PArticulo
 			fill();
 		}
 
-		private void fill() {
+		private void fillComboBoxCategoria(object categoria) {
 			IList list = CategoriaDao.GetList ();
 			ComboBoxHelper.Fill(comboBoxCategoria, list, "Nombre");
 		}
