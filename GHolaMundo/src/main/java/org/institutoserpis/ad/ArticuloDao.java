@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+//GAarticulo    clase ArticuloMain   package org.institutoserpis.ad
+
 public class ArticuloDao {
 
 	public static void main(String[] args) throws SQLException {
