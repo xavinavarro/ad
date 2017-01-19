@@ -24,6 +24,8 @@ dependencies {
 
 
 	compile 'org.hibernate:hibernate-core:5.2.6.Final'
+	
+	compile 'mysql:mysql-connector-java:5.1.40'
 
 
     // Declare the dependency for your favourite test framework you want to use in your tests.
