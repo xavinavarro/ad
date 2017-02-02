@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import javax.persistence.GenerationType;
 @Entity
 
-public class Articulo {
+public class Articulo 
 	private long id;
 	private String nombre;
 	private BigDecimal precio;
